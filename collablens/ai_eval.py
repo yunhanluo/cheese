@@ -16,11 +16,11 @@ message_schema = {
     "schema": {
         "type": "object",
         "properties": {
-            "user_id": {"type": "string"},
             "points": {"type": "integer"},
+            "sender": {"type": "integer"},
             "reasoning": {"type": "string"},
         },
-        "required": ["user_id", "text", "reasoning"],
+        "required": ["sender", "text", "reasoning"],
         "additionalProperties": False
     },
 }
@@ -30,11 +30,11 @@ response_schema = {
     "schema": {
         "type": "object",
         "properties": {
-            "user_id": {"type": "string"},
-            "text": {"type": "string"},
-            "priority": {"type": "string"},
+             "data": {"type": "string"},
+             "sender": {"type": "integer"},
+             "priority": {"type": "string"},
         },
-        "required": ["user_id", "text", "priority"],
+        "required": ["data", "sender", "priority"],
         "additionalProperties": False
     },
 }
@@ -184,10 +184,13 @@ async def main():
     try:
         result = await eval_text_points(text, "message_prompt")
         print(result)
+    
 
-     #   result2 = await eval_text_points(text1, "message_prompt")
-     #   print(result2)
+        result2 = await eval_text_points(text, "conversation_prompt")
+        print(result2)
 
+        result3 = await eval_text_points(text, "response_prompt")
+        print(result3)
      #   result3 = await eval_multiple(text2, "conversation_prompt")
 
       #  result3.filter(lambda x: not -3 < x < 3)

@@ -1,9 +1,12 @@
 const messages = document.querySelector('div#messages')
 const input = document.querySelector('input#input');
-const websocket = new WebSocket("ws://127.0.0.1:8001/");
+const websocket = new WebSocket("ws://192.168.8.65:8001/");
 var chat = '';
+var savedchat = '';
 var myId;
+var IP;
 var recorder, audioChunks, recording;
+var pdata = [];
 
 function add(message, sender, sp) {
   let e = document.createElement('p');
@@ -13,20 +16,23 @@ function add(message, sender, sp) {
   else if (sender == 'error') e.classList.add('error');
   else e.classList.add('other');
   messages.appendChild(e);
-  if (sender != 'error') chat += sender + ': ' + message + '\n';
+  if (sender != 'error') {
+    chat += sender + ': ' + message + '\n';
+    savedchat += sender + ': ' + message + '\n';
+  }
 }
 function addAudio(data, sender) {
   let e = document.createElement('p');
   let aud = document.createElement('audio');
   aud.controls = true;
   aud.src = data;
-  e.innerHTML = '<span>' + sender + (sp != null ? sp : '') + ':';
+  e.innerHTML = '<span>' + sender + ':</span>';
   e.appendChild(aud);
-  e.innerHTML += '</span>';
+  e.classList.add('message');
+  e.classList.add('hasaudio');
   if (sender == myId) e.classList.add('self');
   else if (sender == 'error') e.classList.add('error');
   else e.classList.add('other');
-
   messages.appendChild(e);
   chat += sender + ': ' + 'audio file' + '\n';
 }
@@ -73,27 +79,36 @@ function saveChat() {
 }
 
 function awardPoints() {
-  let chatData = [];
-  for (const string of chat.split('\n')) {
-    data = string.split(': ');
-    chatData.push({
-      'user_id': data[0],
-      'text': data[1]
-    });
+  websocket.send(JSON.stringify({
+    'type': 'process',
+    'data': savedchat
+  }));
+  savedchat = '';
+}
+function awardBadge() {
+  let uid = window.prompt('enter the user ID you want to award the badge to');
+  if (uid == myId || uid == null || uid == undefined) {
+    alert('You can\'t give yourself a kindness badge!');
+    return;
+  }
+
+  let action = window.prompt('what did they do to deserve a badge?');
+  if (action == null || action == undefined || action.trim() == '') {
+    alert('Please provide a reason.');
+    return;
   }
 
   websocket.send(JSON.stringify({
-    'type': 'process',
-    'data': JSON.stringify({
-      'role': 'user',
-      'content': chatData
-    })
+    'type': 'badge',
+    'data': uid,
+    'reason': action,
+    'sender': myId
   }));
 }
-function awardBadge() {
+
+function chartPoints() {
   websocket.send(JSON.stringify({
-    'type': 'badge',
-    'data': alert('enter the user ID you want to award the badge to')
+    'type': 'ppath'
   }));
 }
 
@@ -142,12 +157,14 @@ websocket.addEventListener("message", ({ data }) => {
         senderPlus += ', ' + event.points + (parseInt(event.points) == 1 ? ' pt' : ' pts');
       } if ("badges" in event) {
         if (! senderPlus.includes(', ')) senderPlus += ', ';
-        senderPlus += '<span class="badge"></span>'.repeat(parseInt(event.badges));
+        for (const badge of event.badges) {
+          senderPlus += `<span class="badge icon"><span class=\"tooltiptext\">${badge}</span></span>`;
+        }
       }
       add(event.data, sender, senderPlus);
       break;
     case 'badge':
-      add('you have been awarded a kindness badge!', 'console', '')
+      add(`you have been awarded a kindness badge by ${event.sender}! their reason: ${event.data}`, 'console', '')
     case 'resetSpoken':
       websocket.send(JSON.stringify(event));
       break;
@@ -158,7 +175,9 @@ websocket.addEventListener("message", ({ data }) => {
         senderPlus += ', ' + event.points + (parseInt(event.points) == 1 ? ' pt' : ' pts');
       } if ("badges" in event) {
         if (! senderPlus.includes(', ')) senderPlus += ', ';
-        senderPlus += '<sp'
+        for (const badge in event.badges) {
+          senderPlus += `<span class="badge icon"><span class=\"tooltiptext\">${badge}</span></span>`;
+        }
       }
       addAudio(event.data, sender, senderPlus);
       break;
@@ -168,45 +187,99 @@ websocket.addEventListener("message", ({ data }) => {
     case 'init':
       let actions = document.querySelector('div#actions');
 
+      IP = event.ip;
+
       myId = event.sender;
       let e = document.createElement('p');
       e.innerText = 'Your user ID: ' + myId;
       actions.appendChild(e);
 
       e = document.createElement('a');
-      e.href = 'http://192.168.8.50:8000/?join=' + event.data;
-      e.innerText = "Join Link";
+      e.href = `http://${IP}:8000/?join=` + event.data;
+      e.innerHTML = "<span class=\"icon link\"></span>Join Link";
       e.target = "_blank";
       actions.appendChild(e);
 
       e = document.createElement('a');
-      e.href = 'javascript:copy(\"http://192.168.8.50:8000/?join=' + event.data + '\");';
-      e.innerText = "Copy Link";
+      e.href = `javascript:copy(\"http://${IP}:8000/?join=${event.data}\");`;
+      e.innerHTML = "<span class=\"icon link\"></span>Copy Link";
       e.target = "";
       actions.appendChild(e);
 
       e = document.createElement('a');
       e.href = 'javascript:saveChat();';
-      e.innerText = "Save Chat";
+      e.innerHTML = "<span class=\"icon download\"></span>Save Chat";
       e.target = "";
       actions.appendChild(e);
 
       e = document.createElement('a');
       e.href = 'javascript:awardBadge();';
-      e.innerText = "Award Kindness Badge";
+      e.innerHTML = "<span class=\"icon badge\"></span>Award Kindness Badge";
       e.target = "";
       actions.appendChild(e);
 
       if (event.started == 'yes') {
         e = document.createElement('a');
         e.href = 'javascript:awardPoints();';
-        e.innerText = "Award Kindness Points";
+        e.innerHTML = "<span class=\"icon ai\"></span>Award Kindness Points";
+        e.target = "";
+        actions.appendChild(e);
+
+        e = document.createElement('a');
+        e.href = 'javascript:chartPoints();';
+        e.innerHTML = "<span class=\"icon chart\"></span>Display Points Chart";
         e.target = "";
         actions.appendChild(e);
       }
       break;
     case 'error':
       add(event.data, 'error');
+      break;
+    case 'ppath':
+      for (const ele in document.querySelectorAll('span:has(canvas#myChart)')) {
+        if (ele instanceof Element) ele.remove();
+      }
+
+      let e2 = document.createElement('canvas');
+      e2.id = 'myChart';
+      e2.style.width = '100%';
+      e2.style.maxWidth = '600px';
+
+      let e3 = document.createElement('p');
+      e3.appendChild(e2);
+
+      messages.appendChild(e3);
+      
+      new Chart("myChart", {
+        type: "line",
+        data: {
+          labels: Array.from({ length: parseInt(event.len) }, (_, i) => i + 1),
+          datasets: [{ 
+            data: event.dOne,
+            borderColor: "red",
+            fill: false,
+            label: event.uOne
+          }, { 
+            data: event.dTwo,
+            borderColor: "green",
+            fill: false,
+            label: event.uTwo
+          }]
+        },
+        options: {
+          legend: {
+            display: true
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: 'Kindness Points'
+            }
+          }
+        }
+      });
+
+      websocket.close();
       break;
     default:
       throw new Error(`Unsupported event type: ${event.type}.`);
@@ -218,7 +291,7 @@ websocket.addEventListener("open", () => {
   if (params.has("join")) {
     event.type = 'join';
     event.data = params.get("join");
-    console.log(event.data);
+    // console.log(event.data);
   } else {
     event.type = 'init';
     event.data = 8000;
@@ -241,5 +314,5 @@ document.querySelector('div#textarea').onkeydown = e => {
   }
 };
 
-add('testing', 'tester', ', <span class="badge"></span>')
-add('testing', 'tester', ', <span class="badge"></span><span class="badge"></span>')
+// add('testing', 'tester', '<span class=\"badge\"><span class=\"tooltiptext\">Kindness badge</span></span>')
+// add('testing 2', 'tester 2', '<span class=\"badge\"><span class=\"tooltiptext\">Kindness badge</span></span><span class=\"badge\"><span class=\"tooltiptext\">Kindness badge</span></span>')

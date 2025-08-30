@@ -6,6 +6,10 @@ body {
   padding: 0px;
 }
 
+div#actions a {
+  margin-bottom: 4px;
+}
+
 div#textarea {
   border: 2px solid black;
   margin: 5px;
@@ -102,9 +106,14 @@ div#textarea p.message {
   display: flex;
 }
 
-div#textarea p.message audio {
-  width: calc(300px / 1.25);
-  height: calc(54px / 1.25);
+div#textarea p.message span:has(+ audio) {
+  vertical-align: middle !important;
+}
+
+div#textarea p.message span ~ audio {
+  /* width: calc(300px / 1.75); */
+  /* height: calc(54px / 1.75); */
+  height: 1em;
 }
 
 div#textarea p.message.self {
@@ -141,9 +150,83 @@ div#textarea p.message > span + span {
   float: left;
 }
 
-div#textarea p.message span span.badge {
-  float: initial;
-  text-align: initial;
-  margin: 0px;
-  background-image: url('images/kindnessbadge.png');
+span.icon {
+  float: none !important;
+  text-align: initial !important;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  vertical-align: middle;
+  width: 25px !important;
+  height: 25px !important;
+  background-color: white;
+  background-color: transparent;
+  background-size: 25px;
+  margin-left: 2px !important;
+  margin-right: 2px !important;
+  position: relative;
+  display: inline-block !important;
+}
+
+div#actions a span.icon {
+  margin-right: 4px !important;
+}
+
+span.icon.badge {
+  background-image: url('images/kindnessbadge50-removebg.png');
+}
+
+span.icon.download {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA60lEQVR4AeyU3Q3CMAyECROwQcMGHbFMyAgkEzBC8CdkKcqfSREPSK10snPO3bV+6Pn04+cIMBc8taJlWdIiMF2zC1MBme7j9ggwV2WuyHt/6bnIzPdmyg8DxGBLKT2lrirQ6r1fZfaQuinXqsMAFYjRXYxWPfu3+V3PozoMCCFszrkbBoRQgfZOZtyB62EYgAgDjOhzwDHLuVZvBiDCCEN6QA9Hb6EK4FcASiGGGAP6co4GlHwVUF7IzxiDnLP6qQDLrDXvBvC5M2iZw1UBsuMrgz1oaasA2XGIMbq4A2jLF6sCygvfnv8/4AUAAP//Q6j5owAAAAZJREFUAwCJd4QxebyxfwAAAABJRU5ErkJggg==');
+}
+
+span.icon.link {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA9ElEQVR4AeyS4Q2CQAyF0Ql0Ax3BzXQS3cwRdAPdQPs17VGwgUDwB8mZe9fa9vWFB9vmz78qMGpwtWiWRQdhvQSfBFLSk/WowdUBv/rv4CqNh2AnmHPgsqNwowDqZ+tcJG4SSElP1oNDkx3sIm+iAOoUGbyRTAQcuNDuXCAK8B8wSHTg7RB8jujcYnEmwOBiiAJv24qHlmrI/I41HbKrz+28g5MN8RX8DFpvKMCBy8yRC8QneErBPWQw811G9GQ9ODTZwS7yzhNQ4Cso6hQmAIvhsqPQ4hN4EfXoccx9JtY830sTroT2ZAJtd4GsCoyauH6LvgAAAP//l1GmBgAAAAZJREFUAwBXgjQx6P1gVgAAAABJRU5ErkJggg==');
+}
+
+span.icon.ai {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABaElEQVR4AezRwVHFMAwE0EAF0AF0Ap1AJUAl0Al0Ah1AB6D3J/ojO04CBw7MkPHa8nrlVeTT6Ze/f4PdBu+16DVu+Cy4ivgiUDmaoMZjy8BFUDMZ3FQiYhp8hMuxZaCy20g5mRFLM5KneW5OymbNIKt8Cm22I8JmJE/j4N7UY81AkgrTqM+rexrabxs8RnZWJ47t9BBTXuIiMS7oiSb1i1aN/kBFEivuYuMSl4MYF3QzFo/dG3hYGapTJXhE3AjOaEAOzbsp0RuczQeqUyV4j5leLM5oQA7BhynRG5znQVm1TIWgPSAGZ0V6CC8P8zz1BugXU0F9RJeDisFZkU7+aKrfyOA6BKoDPY7t5qChBXEjHhkQZJWLihx2oPE3o3ZNWwbukaQysK/AAQ2ekbXBmgGRVumx6gBXgQOa5mGraMvAY79VccSqxEd4HDRwJGqwZUCnMm1IuIhB7q00tEPsGQyTfkL+fYMvAAAA///ywfEPAAAABklEQVQDANPtSTFT3MqcAAAAAElFTkSuQmCC');
+}
+
+span.icon.chart {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABIElEQVR4AdyT4RHBUBCEUQEd0ImSdIAOlKQTOqAD9pvnMi/nzsuI/GFuZbP3bndcYjGb+PN/AWtt7DESeMiilF/RpcijvnsePsCc5yLfQGP9ygLslF8XOtoBIsCBaFytgKPGwFlXXxay8o36vhWw12Gw1dUX+kniXUirFZAODm0MCWA9rAnUvtzvJCyFtIYEsB7WAWojewa3lxg+7FaAf1XxQjNzOAjNOdwK4AzDAB7Beqzsrd8KsGEGa849MA1z+1XoHT4F1MMYMGRazemF5hzKAszIhjGAM0MPwNHowUNkARz2wxih0QNwNHiKLCAbxpAegKfG1sgCeOdZQwR6IOqZb3f1AZuu8z3pefiAq3z544wBHrIp5QOK+sPvyQOeAAAA//8ISYxPAAAABklEQVQDACh9TjGw6XUNAAAAAElFTkSuQmCC');
+}
+
+/* Tooltip text */
+span.badge .tooltiptext {
+  visibility: hidden !important;
+  width: 120px !important;
+  background-color: black !important;
+  color: #fff !important;
+  text-align: center !important;
+  padding: 7px 0 !important;
+  border-radius: 6px !important;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute !important;
+  z-index: 1 !important;
+
+  width: 120px !important;
+  top: 100% !important;
+  left: 50% !important;
+  margin-left: -60px !important; /* Use half of the width (120/2 = 60), to center the tooltip */
+
+  opacity: 0%;
+  transition: opacity 0.4s;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+span.badge:hover .tooltiptext {
+  visibility: visible !important;
+  opacity: 100%;
+}
+
+span.badge .tooltiptext::after {
+  content: " " !important;
+  position: absolute !important;
+  bottom: 100% !important;  /* At the top of the tooltip */
+  left: 50% !important;
+  margin-left: -5px !important;
+  border-width: 5px !important;
+  border-style: solid !important;
+  border-color: transparent transparent black transparent !important;
 }

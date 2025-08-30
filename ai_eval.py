@@ -32,7 +32,7 @@ response_schema = {
         "properties": {
              "data": {"type": "string"},
              "sender": {"type": "integer"},
-             "priority": {"type": "string"},
+             "priority": {"type": "integer"},
         },
         "required": ["data", "sender", "priority"],
         "additionalProperties": False

@@ -66,9 +66,10 @@ match_prompt = {
     "response_prompt": response_prompt
 }
 
+
 client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 semaphore = asyncio.Semaphore(15)
-            
+
 async def eval_text_points(text, prompt):
     
     backoff = 0.1
@@ -97,90 +98,15 @@ async def eval_text_points(text, prompt):
         except json.JSONDecodeError as e:
             raise Exception(f"Failed to parse JSON response: {str(e)}")
 
-async def eval_multiple(texts, prompt):
-    task = [eval_text_points(text, prompt) for text in texts]
-    return await asyncio.gather(*task)
-
-async def chunked_messages(conversation):
-    chunks = []
-    for i in range(0, len(conversation), 5):
-        if i > 5:
-            chunks.append(conversation[i-5:i])
-        else:
-            chunks.append(conversation[:i])
-    return chunks
-
 async def main():
     text = [
     {'sender': 1234567899, 'data': 'I am racist.'},
     {'sender': 1234567899, 'data': 'I like to eat meat.'},
-    {'sender': 1234567892, 'data': 'Hey! That is not cool. Knock it off.'} # Sample Data. Data should follow this format.
+    {'sender': 1234567892, 'data': 'Hey! That is not cool. Knock it off.'},
+    {'sender': 1234567894, 'data': 'A cheerful snail wearing sunglasses joyfully shared ideas about quantum physics with a vending machine in the middle of a brightly lit bowling alley.'},
+     # Sample Data. Data should follow this format.
 ]
- # Here's some data I wrote. But it is not formatted correctly, so womp womp.
-
-    text1 = {"role": "user", "content": '''
-            
-             {sender: 1234567899, data: 'I am racist.'
-            },
-            {
-            data: 1234567899, data: I like to eat meat.
-            },
-            userid: 1234567892, data: Hey! That is not cool. Knock it off.
-            }
-            '''}
-    
-    text2 = {"role": "user", "content": '''
-            [
-            {
-            sender: 1234567899, 
-            data: I am racist.
-            },
-            {
-            sender: 1234567899, data: I like to eat meat.
-            },
-            {
-             sender: 1234567899, data: I like to eat fish.
-            },
-             {
-             sender: 1234567899, data: I like to eat fish, but I hate this. Why running feet?
-             Yeah, why running feet? No running feet. This is dumb.
-            },
-             {
-             sender: 1234567899, data: I hate people. They are all stupid.
-            },
-             {
-             sender: 1234567890, data: Hey, let's try a more constructive approach to this problem, ok?
-            },
-             {
-             sender: 1234567890, data: Ok, not cool. I ask that you stop this. Please. It is not getting us anywhere,
-             and I bet quite a few of us are being made uncomfortable. So please, think about the feelings of people around you.
-             You are not working alone. We are all in this together. 
-            },
-             {
-             sender: 1234567891, data: Hey, not cool. Knock it off. 
-            },
-            {
-             sender: 1234567899, data: Oh confound you. I will not work in this group anymore. You are all f-ing idiots
-            },
-            ]
-             '''
-    }
-
-    ''' Outline of what we have to do:
-
-     Get the JSON data from the server. Drop those fields, to get something like the one that's on the Google Doc. Clean it, and then send it over.
-     Remember, calls must make the prompts be the string versions, like "conversation_prompt" "response_prompt" etc.
-
-     The AI calculates the things every 15 messages maybe. There should be a counter.
-     It sends its data to the backend. But really just move this code over there. We can wrap it in an API if you really want.
-     After 15, if it senses some bad vibes, if we deduce it has sensed some bad vibes from seeing its points, we tell everyone all about it.
-
-
-     
-     
-     TODO: Add the kindness badges that are given to each other by the users. 
-
-'''
+ 
     try:
         result = await eval_text_points(text, "message_prompt")
         print(result)
@@ -191,16 +117,8 @@ async def main():
 
         result3 = await eval_text_points(text, "response_prompt")
         print(result3)
-     #   result3 = await eval_multiple(text2, "conversation_prompt")
 
-      #  result3.filter(lambda x: not -3 < x < 3)
-     #   print(result3)
 
-      # Then you call eval_multiple on the chunks and you deal with the results. 
-
-       # if not -3 < result['points'] < 3:
-
-         #  
     except Exception as e:
         print(f"Error: {e}")
 

@@ -14,7 +14,7 @@ Search all files for the IP previously listed in the `json` file and replace it 
 
 ### Step 3
 
-Ensure that all files have been checked including all `html` and `js` files, then continue to the bottom.
+Ensure that all files have been checked including all `html` and `js` files, then continue to the next section.
 
 ## How to run the files
 

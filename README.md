@@ -44,7 +44,7 @@ To begin, we need to install all python libraries. These include:
 
 There are also a few custom libraries in the `lib` folder. To install the libraries listed above, use `py -m pip {LIBRARY_NAME}`.
 
-This also requires FFmpeg installed on your computer for sound conversion. I highly suggest reading this tutorial by WikiHow to install FFmpeg. <https://www.wikihow.com/Convert-Media-with-FFmpeg>
+This also requires FFmpeg installed on your computer for sound conversion. I highly suggest reading this tutorial by WikiHow to install FFmpeg: <https://www.wikihow.com/Convert-Media-with-FFmpeg>.
 
 ### Running the files
 

@@ -20,7 +20,7 @@ Ensure that all files have been checked including all `html` and `js` files, the
 
 Depending on your python configuration, you may use the `py`, `python`, `python3`, or any other command. From now on, it will be referenced as `py`.
 
-However, note that this uses Python 3.11.0 and Pip version 25.2. If you need to install this version of python, go to [Python's website](https://www.python.org/downloads/release/python-3110/) and scroll to the bottom to find the downloads. From there, you can open the executable/package or whatever it is to install python. Make sure you find the correct command, which should be one of the aforementioned commands.
+However, note that this uses Python 3.11.0 and Pip version 25.2. (You can check your Python version using `py --version` and pip version using `py -m pip --version`). If you need to install this version of python, go to [Python's website](https://www.python.org/downloads/release/python-3110/) and scroll to the bottom to find the downloads. From there, you can open the executable/package or whatever it is to install python. Make sure you find the correct command, which should be one of the aforementioned commands.
 
 ### Installing dependencies
 

@@ -1,3 +1,0 @@
-an average sound data uri would look like:
-
-data:audio/webm;base64,BASE64DATAHERE

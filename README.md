@@ -1,5 +1,12 @@
 # How to use CollabLens
 
+## What this Is
+
+Collablens is a project made for people to communicate in a kind environment and ensure everyone has a voice.
+
+You can watch our project video here: [video link](https://drive.google.com/file/d/17aMr5uZ_blr3LTjrCcuqDmoWlwHvRZ58/view?usp=drive_link)\
+Or you can read the transcription: [transcription](https://docs.google.com/document/d/16n6tC3MFPMs_r9h6Pslbm-PrAul3JJKANkW7L5c4mFc/edit?usp=drive_link)
+
 ## Configuring the project
 
 This project provides a lot of code, but you don't need to worry about it. What you  need to do is that you need to change some parameters if you want to run on an IP address. The current program allows running on your local machine.
@@ -14,7 +21,7 @@ Search all files for the IP previously listed in the `json` file and replace it 
 
 ### Step 3
 
-Ensure that all files have been checked including all `html` and `js` files, then continue to the next section.
+Ensure that all files have been checked, including all `html` and `js` files, then continue to the next section.
 
 ## How to run the files
 

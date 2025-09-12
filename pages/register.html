@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CollabLens</title>
+    <link rel="stylesheet" href="index.css"/>
+    <link rel="stylesheet" href="common.css"/>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  </head>
+  <body>
+    <h1>Welcome to CollabLens</h1>
+    <h4>Register</h4>
+    <span>Have an account? <a href="http://localhost:8000">Sign in</a></span>
+    <form class="center">
+      <label for="username">Username: </label>
+      <input name="username" id="username" placeholder="Username" autocomplete="username" type="text" required/>
+      <br /><br />
+      <label for="password">Password: </label>
+      <input name="password" id="password" placeholder="Password" type="password" autocomplete="current-password" required/>
+      <button id="showhidepassword" type="button" class="eyeOpen"></button>
+      <p id="error">&nbsp;</p>
+      <br /><br />
+      <button type="button" id="login">Register</button>
+    </form>
+    <script src="index.js"></script>
+    <script>
+      document.getElementById('login').onclick = e => {login('register')};
+    </script>
+  </body>
+</html>

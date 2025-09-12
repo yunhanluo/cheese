@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CollabLens</title>
+    <link rel="stylesheet" href="home.css"/>
+    <link rel="stylesheet" href="common.css"/>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  </head>
+  <body>
+    <h1>CollabLens</h1>
+    <h4 id="usn"></h4>
+    <button onclick="launchMeeting()" class="clickable">Start Meeting</button>
+    <br />
+    <label for="mid">Enter meeting code: </label><input id="mid" name="mid" />
+    <button class="clickable" onclick="goToMeeting()">Join Meeting</button>
+    <br />
+    <button onclick="logout()" class="clickable">Log Out</button>
+    <script src="home.js"></script>
+  </body>
+</html>

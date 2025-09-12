@@ -1,0 +1,69 @@
+h1, h2, h3, h4, h5, h6, .center {
+  text-align: center;
+}
+
+body {
+  overflow-x: hidden;
+  transform-origin: top center;
+  transform: scale(2);
+}
+
+body > h1 {
+  margin-bottom: 40px;
+}
+
+h4 {
+  margin-bottom: 15px;
+}
+
+h4 + span {
+  display: block;
+  font-size: 6pt;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 30em;
+  border: 2px solid black;
+}
+
+input + button {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-left: 0px;
+  border: 2px solid white;
+  border: 2px solid transparent;
+  background-color: black;
+  background-color: transparent;
+  background-position-x: -1px;
+  background-position-y: -1px;
+  position: relative;
+  top: 4px;
+}
+
+input + button:hover {
+  border: 2px solid gray;
+}
+
+input + button:active {
+  border: 2px solid black;
+}
+
+input + button.eyeOpen {
+  background-image: url('images/eyeclosed.png');
+}
+
+input + button.eyeClosed {
+  background-image: url('images/eyeopen.png');
+}
+
+input:has(+ button) {
+  width: calc(30em - 24px - 5px);
+  margin-right: 5px;
+}
+
+p#error {
+  color: red;
+}

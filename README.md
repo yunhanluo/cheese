@@ -50,7 +50,7 @@ To begin, we need to install all python libraries. These include:
 - `ffmpeg`
 - `secrets`
 
-There are also a few custom libraries in the `lib` folder. To install the libraries listed above, use `py -m pip {LIBRARY_NAME}`.
+There are also a few custom libraries in the `lib` folder. To install the libraries listed above, use `py -m pip {LIBRARY_NAME}`. Some of these libraries may have already been installed, including `json`, `asyncio`, `threading`, `wave`, `base64`, `subprocess`, `secrets`. You can check using `py -m pip list`.
 
 This also requires FFmpeg installed on your computer for sound conversion. I highly suggest reading this tutorial by WikiHow to install FFmpeg: <https://www.wikihow.com/Convert-Media-with-FFmpeg>.
 

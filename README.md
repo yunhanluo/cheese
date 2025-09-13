@@ -21,7 +21,11 @@ Search all files for the IP previously listed in the `json` file and replace it 
 
 ### Step 3
 
-Ensure that all files have been checked, including all `html` and `js` files, then continue to the next section.
+Ensure that all files have been checked, including all `html` and `js` files.
+
+### Step 4
+
+Go to [ChatGPT](chat.com) and register an API key, then insert it into `app.py` where it says `YOUR_API_KEY_HERE`.
 
 ## How to run the files
 
@@ -31,7 +35,7 @@ However, note that this uses Python 3.11.0 and Pip version 25.2. (You can check 
 
 ### Installing dependencies
 
-You also may have `pip` as a separate commmand. If you do, that is good. However, for the sake of this tutorial I will be using `py -m pip` instead.
+You also may have `pip` as a separate commmand. If you do, that is good, however, for the sake of this tutorial I will be using `py -m pip` instead.
 
 To begin, we need to install all python libraries. These include:
 

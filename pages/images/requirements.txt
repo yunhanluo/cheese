@@ -1,0 +1,8 @@
+openai==1.65.4
+better-profanity==0.7.0
+SpeechRecognition==3.14.3
+vosk==0.3.45
+PyAudio==0.2.14
+websockets==15.0.1
+ffmpeg==1.4
+ffprobe==0.5

@@ -5,7 +5,7 @@ import asyncio, secrets, json
 import better_profanity as profanity
 import speech_recognition as sr
 import lib.ai_eval as ae
-import lib.weird as b64audio
+import lib.b64audio as b64audio
 
 with open('pages/data/connection.json') as file:
   js: dict[str, str] = json.loads(file.read())
@@ -301,5 +301,6 @@ recog = sr.Recognizer()
 
 if __name__ == "__main__":
   print('----------\nVosk: ' + recog.recognize_vosk(sr.AudioData.from_file('sounds\\boot.wav')))
+
 
   asyncio.run(main())

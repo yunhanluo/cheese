@@ -29,7 +29,7 @@ Go to [ChatGPT](chat.com) and register an API key, then insert it into `app.py` 
 
 ## How to run the files
 
-**TL; DR** [List of terminal commands you can run to get the project going.](#running-the-flies---simple-version)
+**TL; DR** [List of terminal commands you can run to get the project going.](#quick-start)
 
 Depending on your python configuration, you may use the `py`, `python`, `python3`, or any other command. From now on, it will be referenced as `py`.
 
@@ -78,16 +78,19 @@ For example, I would run `py app.py`, then open a new window and type `cd pages`
 
 You can use the keyboard shortcut `^C` (control C) or `⌘C` (command C) or whatever python keyboard interrupt key you use to stop the python program and/or the HTTP server. Just keep in mind that some people may not want you to host servers on their network, so watch out.
 
-### Running the flies - Simple version
+### Quick start
 
-Replace `/` with your file separator.
+(Replace `/` with your file separator.)
 
-1. In two terminal windows, `cd PATH/TO/PROJECT`
-2. First terminal window:
+1. Go to <https://www.wikihow.com/Convert-Media-with-FFmpeg> and download FFmpeg on your computer.
+2. Go to [Vosk's website](https://alphacephei.com/vosk/models) and install a model in the \[new\] `model` folder of the project.
+3. In two terminal windows, `cd PATH/TO/PROJECT`
+4. First terminal window:
     1. `python -m pip install -r requirements.txt`
     2. `python app.py`
-3. Second terminal window:
-    1. `python -m http.server -b YOUR_IP_HERE 8000`
+5. Second terminal window:
+    1. `cd pages`
+    2. `python -m http.server -b YOUR_IP_HERE 8000`
 
 ## Additional Info
 

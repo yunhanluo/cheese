@@ -29,6 +29,8 @@ Go to [ChatGPT](chat.com) and register an API key, then insert it into `app.py` 
 
 ## How to run the files
 
+**TL; DR** [List of terminal commands you can run to get the project going.](#running-the-flies---simple-version)
+
 Depending on your python configuration, you may use the `py`, `python`, `python3`, or any other command. From now on, it will be referenced as `py`.
 
 However, note that this uses Python 3.11.0 and Pip version 25.2. (You can check your Python version using `py --version` and pip version using `py -m pip --version`). If you need to install this version of python, go to [Python's website](https://www.python.org/downloads/release/python-3110/) and scroll to the bottom to find the downloads. From there, you can open the executable/package or whatever it is to install python. Make sure you find the correct command, which should be one of the aforementioned commands.
@@ -54,7 +56,7 @@ To begin, we need to install all python libraries. These include:
 - `ffmpeg`
 - `secrets`
 
-There are also a few custom libraries in the `lib` folder. To install the libraries listed above, use `py -m pip {LIBRARY_NAME}`. Some of these libraries may have already been installed, including `json`, `asyncio`, `threading`, `wave`, `base64`, `subprocess`, `secrets`. You can check using `py -m pip list`.
+There are also a few custom libraries in the `lib` folder. To install the libraries listed above, use `cd` (see below) to access `app.py`'s folder, then run `py -m pip -r requirements.txt` to install all the dependencies. Alternatively, you can use `py -m pip {LIBRARY_NAME}`. Some of these libraries may have already been installed, including `json`, `asyncio`, `threading`, `wave`, `base64`, `subprocess`, `secrets`. You can check using `py -m pip list`.
 
 This also requires FFmpeg installed on your computer for sound conversion. I highly suggest reading this tutorial by WikiHow to install FFmpeg: <https://www.wikihow.com/Convert-Media-with-FFmpeg>.
 
@@ -75,6 +77,17 @@ For example, I would run `py app.py`, then open a new window and type `cd pages`
 #### Stopping
 
 You can use the keyboard shortcut `^C` (control C) or `⌘C` (command C) or whatever python keyboard interrupt key you use to stop the python program and/or the HTTP server. Just keep in mind that some people may not want you to host servers on their network, so watch out.
+
+### Running the flies - Simple version
+
+Replace `/` with your file separator.
+
+1. In two terminal windows, `cd PATH/TO/PROJECT`
+2. First terminal window:
+    1. `python -m pip install -r requirements.txt`
+    2. `python app.py`
+3. Second terminal window:
+    1. `python -m http.server -b YOUR_IP_HERE 8000`
 
 ## Additional Info
 

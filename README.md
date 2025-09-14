@@ -84,11 +84,12 @@ You can use the keyboard shortcut `^C` (control C) or `⌘C` (command C) or what
 
 1. Go to <https://www.wikihow.com/Convert-Media-with-FFmpeg> and download FFmpeg on your computer.
 2. Go to [Vosk's website](https://alphacephei.com/vosk/models) and install a model in the \[new\] `model` folder of the project.
-3. In two terminal windows, `cd PATH/TO/PROJECT`
-4. First terminal window:
+3. Ensure your OpenAI api key is contained in `lib/ai_eval.py` where it says `YOUR_API_KEY_HERE`.
+4. In two terminal windows, `cd PATH/TO/PROJECT`
+5. First terminal window:
     1. `python -m pip install -r requirements.txt`
     2. `python app.py`
-5. Second terminal window:
+6. Second terminal window:
     1. `cd pages`
     2. `python -m http.server -b YOUR_IP_HERE 8000`
 
